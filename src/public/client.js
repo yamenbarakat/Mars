@@ -1,50 +1,40 @@
-let store = {
-  user: { name: "Student" },
+let store = Immutable.Map({
+  author: Immutable.Map({ name: "Yamen" }),
   apod: "",
-  rovers: ["Curiosity", "Opportunity", "Spirit"],
-};
+  rovers: Immutable.List(["Curiosity", "Opportunity", "Spirit"]),
+});
 
 // add our markup to the page
 const root = document.getElementById("root");
 
 const updateStore = (store, newState) => {
-  store = Object.assign(store, newState);
-  render(root, store);
+  store = Immutable.merge(store, newState);
+  return store;
 };
 
-const render = async (root, state) => {
-  root.innerHTML = App(state);
+const render = async (root, store) => {
+  root.innerHTML = App(store.toJS());
 };
 
 // create content
-const App = (state) => {
-  let { rovers, apod } = state;
+const App = (store) => {
+  let { rovers, apod, author } = store;
 
   return `
-        <header></header>
+        <header><h1>Mars Rovers</h1></header>
         <main>
-            ${Greeting(store.user.name)}
-            <section>
-                <h3>Put things on the page!</h3>
-                <p>Here is an example section.</p>
-                <p>
-                    One of the most popular websites at NASA is the Astronomy Picture of the Day. In fact, this website is one of
-                    the most popular websites across all federal agencies. It has the popular appeal of a Justin Bieber video.
-                    This endpoint structures the APOD imagery and associated metadata so that it can be repurposed for other
-                    applications. In addition, if the concept_tags parameter is set to True, then keywords derived from the image
-                    explanation are returned. These keywords could be used as auto-generated hashtags for twitter or instagram feeds;
-                    but generally help with discoverability of relevant imagery.
-                </p>
+            <section
+                <h3>Planetary Image, Date: ${apod.image.date}</h3>
                 ${ImageOfTheDay(apod)}
             </section>
         </main>
-        <footer></footer>
+        <footer>All rights reserved, made by ${author.name}</footer>
     `;
 };
 
 // listening for load event because page should load before any JS is called
 window.addEventListener("load", () => {
-  render(root, store);
+  getImageOfTheDay(store);
 });
 
 // ------------------------------------------------------  COMPONENTS
@@ -81,7 +71,7 @@ const ImageOfTheDay = (apod) => {
         `;
   } else {
     return `
-            <img src="${apod.image.url}" height="350px" width="100%" />
+            <img src="${apod.image.url}" height="300px" width="100%" />
             <p>${apod.image.explanation}</p>
         `;
   }
@@ -89,13 +79,26 @@ const ImageOfTheDay = (apod) => {
 
 // ------------------------------------------------------  API CALLS
 
-// Example API call
+// get the latest image
 const getImageOfTheDay = (state) => {
-  let { apod } = state;
-
   fetch(`http://localhost:3000/apod`)
     .then((res) => res.json())
-    .then((apod) => updateStore(store, { apod }));
+    .then((apod) => updateStore(state, { apod }))
+    .then((store) => {
+      render(root, store);
+      return store;
+    });
+};
 
-  return data;
+// get rover
+const getRover = (state) => {
+  let { apod } = state;
+
+  fetch(`http://localhost:3000/curiosity`)
+    .then((res) => res.json())
+    .then((apod) => {
+      console.log(apod);
+    });
+
+  return;
 };

@@ -1,23 +1,31 @@
 /* -------------------  MOBILE  --------------------- */
 
-body {
-  display: flex;
-  flex-direction: column;
+#root {
+  display: grid;
+  grid-template-rows: 75px 1fr 50px;
   font-family: Arial;
   min-height: 100vh;
 }
 
-header {
+header,
+footer {
   /* header styles */
-}
-
-main {
-  flex: 1;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
   padding: 20px;
 }
 
-footer {
-  /* footer styles */
+h3 {
+  text-align: center;
+}
+
+main {
+  padding: 20px;
+}
+
+main img {
+  margin: 10px 0;
 }
 
 /* -------------------  TABLET  --------------------- */
