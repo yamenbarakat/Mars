@@ -29,10 +29,10 @@ app.get("/apod", async (req, res) => {
 // get curiosity rover
 app.get("/curiosity", async (req, res) => {
   try {
-    let curiosityRover = await fetch(
+    let curiosity = await fetch(
       `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/latest_photos?api_key=${process.env.API_KEY}`
     ).then((res) => res.json());
-    res.send({ curiosityRover });
+    res.send(curiosity);
   } catch (err) {
     console.log("error:", err);
   }
@@ -41,10 +41,10 @@ app.get("/curiosity", async (req, res) => {
 // get oportunity Rover
 app.get("/opportunity", async (req, res) => {
   try {
-    let opportunityRover = await fetch(
+    let opportunity = await fetch(
       `https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/latest_photos?api_key=${process.env.API_KEY}`
     ).then((res) => res.json());
-    res.send({ opportunityRover });
+    res.send(opportunity);
   } catch (err) {
     console.log("error:", err);
   }
@@ -53,10 +53,10 @@ app.get("/opportunity", async (req, res) => {
 // get spirit rover
 app.get("/spirit", async (req, res) => {
   try {
-    let spiritRover = await fetch(
+    let spirit = await fetch(
       `https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/latest_photos?api_key=${process.env.API_KEY}`
     ).then((res) => res.json());
-    res.send({ spiritRover });
+    res.send(spirit);
   } catch (err) {
     console.log("error:", err);
   }
