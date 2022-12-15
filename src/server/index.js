@@ -17,7 +17,7 @@ app.use("/", express.static(path.join(__dirname, "../public")));
 // get the latest image
 app.get("/apod", async (req, res) => {
   try {
-    let image = await fetch(
+    const image = await fetch(
       `https://api.nasa.gov/planetary/apod?api_key=${process.env.API_KEY}`
     ).then((res) => res.json());
     res.send({ image });
@@ -29,7 +29,7 @@ app.get("/apod", async (req, res) => {
 // get curiosity rover
 app.get("/curiosity", async (req, res) => {
   try {
-    let curiosity = await fetch(
+    const curiosity = await fetch(
       `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/latest_photos?api_key=${process.env.API_KEY}`
     ).then((res) => res.json());
     res.send(curiosity);
@@ -41,7 +41,7 @@ app.get("/curiosity", async (req, res) => {
 // get oportunity Rover
 app.get("/opportunity", async (req, res) => {
   try {
-    let opportunity = await fetch(
+    const opportunity = await fetch(
       `https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/latest_photos?api_key=${process.env.API_KEY}`
     ).then((res) => res.json());
     res.send(opportunity);
@@ -53,7 +53,7 @@ app.get("/opportunity", async (req, res) => {
 // get spirit rover
 app.get("/spirit", async (req, res) => {
   try {
-    let spirit = await fetch(
+    const spirit = await fetch(
       `https://api.nasa.gov/mars-photos/api/v1/rovers/spirit/latest_photos?api_key=${process.env.API_KEY}`
     ).then((res) => res.json());
     res.send(spirit);
