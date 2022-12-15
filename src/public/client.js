@@ -138,12 +138,21 @@ const updateDomRover = (roverName) => {
           </div>`;
 };
 
+// check the api response if it is valid
+const checkResponse = (response) => {
+  if (response.ok) {
+    return response.json();
+  } else {
+    throw new Error("Something went wrong");
+  }
+};
+
 // ------------------------------------------------------  API CALLS
 
 // get the latest image
 const getImageOfTheDay = (state) => {
   fetch(`http://localhost:3000/apod`)
-    .then((res) => res.json())
+    .then((response) => checkResponse(response))
     .then((apod) => updateStore(state, { apod }))
     .then((store) => {
       render(root, store);
@@ -154,7 +163,7 @@ const getImageOfTheDay = (state) => {
 // get rover
 const getRover = (roverName) => {
   fetch(`http://localhost:3000/${roverName}`)
-    .then((res) => res.json())
+    .then((response) => checkResponse(response))
     .then((rover) => {
       storeRoversData(roverName, rover);
       return rover;

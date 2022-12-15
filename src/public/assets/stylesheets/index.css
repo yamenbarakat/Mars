@@ -25,7 +25,8 @@ main {
 }
 
 #planetary-img {
-  margin: 10px 0;
+  display: block;
+  margin: 10px auto;
   max-width: 100%;
 }
 
@@ -47,7 +48,7 @@ main p {
 }
 
 #rover {
-  margin: 20px auto;
+  margin: 20px 0;
   display: flex;
   align-items: center;
   flex-direction: column;
