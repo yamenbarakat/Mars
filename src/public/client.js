@@ -20,7 +20,7 @@ const render = async (root, store) => {
 
 // create content
 const App = (store) => {
-  let { rovers, apod, author } = store;
+  const { rovers, apod, author } = store;
 
   return `
         <header><h1>Mars Rovers</h1></header>
@@ -66,7 +66,7 @@ const ImageOfTheDay = (apod) => {
         `;
   } else {
     return `
-            <img src="${apod.image.url}" height="350px" width="100%" id="planetary-img"/>
+            <img src="${apod.image.url}" id="planetary-img"/>
             <p>${apod.image.explanation}</p>
         `;
   }
